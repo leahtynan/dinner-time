@@ -1,0 +1,10 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-gap: 10px;
+  background-color: #fff;
+  color: #444;
+  height: 200px;
+  margin-bottom: 25px;
+  font-size: 40px;
+}

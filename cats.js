@@ -5,19 +5,17 @@
 
 // -------------------- OBJECTS --------------------
 
-// Object literal https://www.dyn-web.com/tutorials/object-literal/#targetText=JavaScript%20Object%20Literal,cause%20problems%20when%20combining%20code.
+// Object literal 
 var bag = {              
     flavors: ["chicken", "beef", "salmon", "cod", "turkey"],
 	itemsRetrieved: 0
 }; 
 
-// Class, template that we want to create instances of
+// Constructor
 function Cat(name, color, favoriteFlavors) {
   this.name = name;
   this.color = color;
   this.favoriteFlavors = favoriteFlavors;
-  // Meow function;
-  // Animate function;
 }
 
 // -------------------- MAIN FEEDING FUNCTION --------------------
@@ -28,12 +26,15 @@ function retrieveCan() {
 	 console.log("-------- CAN #" + bag.itemsRetrieved + " --------");
 	 console.log("The flavor is: " + flavor + "! ");
 	 // TODO: Update can graphic with "flavor.png".
-	 // TODO: Cats respond
 	 for (i = 0; i < 4; i++) {
 		 if (cats[i].favoriteFlavors.includes(flavor) == true) {
 			 console.log("* " + cats[i].name + " would eat a " + flavor + " can.");
+			 document.getElementById(cats[i].name).innerHTML = "Wants food"; // TODO: Replace this with changing background image, filename cats[i].name_wants-food
+			 // TODO: Add alt text and title for accessibility
 		 } else {
 			 console.log("* " + cats[i].name + " would NOT eat a " + flavor + " can.");
+		  	 document.getElementById(cats[i].name).innerHTML = "Default"; // TODO: Replace this with changing background image, filename cats[i].name_default
+			 // TODO: Add alt text and title for accessibility
 		 }
 	 }
 }
@@ -46,17 +47,21 @@ getCatFoodButton.addEventListener("click", function () {
   retrieveCan();
 });
 
-// Create the cats and add them to the cats array
+// Create the cats and add them to the cats array. The color specified her will map to the filename.
+// Cat names must match name in the DOM
 var cats = new Array();
-var smoky = new Cat('Smoky', "gray", ["chicken", "cod", "beef"]);
-var amber = new Cat("Amber", "orange", ["beef", "turkey"]);
-var midnight = new Cat("Midnight", "black", ["salmon", "turkey"]);
-var sunshine = new Cat("Sunshine", "yellow", ["cod", "chicken"]);
+var smoky = new Cat('smoky', "gray", ["chicken", "cod", "beef"]);
+var amber = new Cat("amber", "orange", ["beef", "turkey"]);
+var midnight = new Cat("midnight", "black", ["salmon", "turkey"]);
+var sunshine = new Cat("sunshine", "yellow", ["cod", "chicken"]);
 cats.push(smoky);
 cats.push(amber);
 cats.push(midnight);
 cats.push(sunshine);
 console.log("Number of cats: " + cats.length);
 
-// Give the cats the correct colors
-// TODO: Use the hex colors in the objects to add a color overlay on plain graphic https://css-tricks.com/tinted-images-multiple-backgrounds/
+// TODO: Load the default cat graphics
+for (i = 0; i < 4; i++) {
+	document.getElementById(cats[i].name).style.backgroundImage = "url('http://leahbrunetto.com/images/patterns/luxe.jpg')"; // TODO: Replace this with changing background image, filename cats[i].name_default
+	// TODO: Add alt text and title for accessibility
+}
