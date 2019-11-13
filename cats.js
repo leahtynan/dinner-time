@@ -19,36 +19,44 @@ function Cat(name, color, favoriteFlavors) {
 }
 
 // -------------------- MAIN FEEDING FUNCTION --------------------
+var random = 99;
 
 function retrieveCan() {
-	 var flavor = bag.flavors[Math.floor(Math.random()*bag.flavors.length)];
+	 var newRandom = Math.floor(Math.random()*bag.flavors.length);
+	 while(newRandom == random) {
+		 newRandom = Math.floor(Math.random()*bag.flavors.length);
+	 }
+	 random = newRandom;
+	 var flavor = bag.flavors[newRandom];
 	 bag.itemsRetrieved++;
 	 console.log("-------- CAN #" + bag.itemsRetrieved + " --------");
-	 console.log("The flavor is: " + flavor + "! ");
-	 // TODO: Update can graphic with "flavor.png".
+	 document.getElementById("message").innerHTML = "The flavor is " + flavor;
 	 for (i = 0; i < 4; i++) {
+		 var imageContainer = document.getElementById(cats[i].name);
+		 var imageToUpdate = imageContainer.getElementsByTagName('img')[0];
 		 if (cats[i].favoriteFlavors.includes(flavor) == true) {
 			 console.log("* " + cats[i].name + " would eat a " + flavor + " can.");
-			 document.getElementById(cats[i].name).innerHTML = "Wants food"; // TODO: Replace this with changing background image, filename cats[i].name_wants-food
-			 // TODO: Add alt text and title for accessibility
+		 	 imageToUpdate.src = "img/" + cats[i].name + "_wants-food.jpg"; 
+			 imageToUpdate.alt = cats[i].color + " cat begging for food";
+			 imageToUpdate.title = cats[i].color + " cat begging for food";
 		 } else {
 			 console.log("* " + cats[i].name + " would NOT eat a " + flavor + " can.");
-		  	 document.getElementById(cats[i].name).innerHTML = "Default"; // TODO: Replace this with changing background image, filename cats[i].name_default
-			 // TODO: Add alt text and title for accessibility
+		 	 imageToUpdate.src = "img/" + cats[i].name + "_default.jpg"; 
+			 imageToUpdate.alt = cats[i].color + " cat resting";
+			 imageToUpdate.title = cats[i].color + " cat resting";
 		 }
 	 }
 }
 
 // -------------------- SETUP ON LOAD --------------------
 
-// Identify the trigger in the DOM
+// Set up the button click trigger in the DOM
 var getCatFoodButton = document.getElementById("catFoodTrigger"); 
 getCatFoodButton.addEventListener("click", function () { 
   retrieveCan();
 });
 
-// Create the cats and add them to the cats array. The color specified her will map to the filename.
-// Cat names must match name in the DOM
+// Create the cats and add them to the cats array. The colors specified here are used for alt/title text. The names map to the filenames and IDs in the DOM.
 var cats = new Array();
 var smoky = new Cat('smoky', "gray", ["chicken", "cod", "beef"]);
 var amber = new Cat("amber", "orange", ["beef", "turkey"]);
@@ -60,8 +68,3 @@ cats.push(midnight);
 cats.push(sunshine);
 console.log("Number of cats: " + cats.length);
 
-// TODO: Load the default cat graphics
-for (i = 0; i < 4; i++) {
-	document.getElementById(cats[i].name).style.backgroundImage = "url('http://leahbrunetto.com/images/patterns/luxe.jpg')"; // TODO: Replace this with changing background image, filename cats[i].name_default
-	// TODO: Add alt text and title for accessibility
-}
