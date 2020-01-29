@@ -12,10 +12,12 @@ var bag = {
 }; 
 
 // Constructor
-function Cat(name, color, favoriteFlavors) {
-  this.name = name;
-  this.color = color;
-  this.favoriteFlavors = favoriteFlavors;
+class Cat {
+	constructor(name, color, favoriteFlavors) {
+		this.name = name;
+		this.color = color;
+        this.favoriteFlavors = favoriteFlavors;
+	}
 }
 
 // -------------------- MAIN FEEDING FUNCTION --------------------
